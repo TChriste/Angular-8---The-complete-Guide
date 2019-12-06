@@ -10,13 +10,7 @@ export class AppComponent {
   logs = [];
 
   toggle() {
-    if (this.showDetails === true) {
-      this.showDetails = false;
-    } else {
-      this.showDetails = true;
-    }
-
-    // Log
+    this.showDetails = !this.showDetails;
     let currentDay = new Date();
     let date = currentDay.getDate() + '.' + (currentDay.getMonth() + 1) + '.' + currentDay.getFullYear() + ' ' +
                currentDay.getHours() + ':' + currentDay.getMinutes() + ':' + currentDay.getSeconds();
