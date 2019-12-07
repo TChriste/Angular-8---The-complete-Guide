@@ -4,7 +4,7 @@
       <label>Server Name</label>
       <!-- Two Way data binding : -->
       <!-- <input type="text" class="form-control" [(ngModel)]="newServerName"> -->
-      <!-- Single Way -->
+      <!-- Single Way (ServerNameInput can be used only in the template !?)-->
       <input type="text" class="form-control" #serverNameInput>
 
       <label>Server Content</label>
@@ -12,9 +12,9 @@
       <br>
       <button
         class="btn btn-primary"
-        (click)="onAddServer()">Add Server</button>
+        (click)="onAddServer(serverNameInput)">Add Server</button>
       <button
         class="btn btn-primary"
-        (click)="onAddBlueprint()">Add Server Blueprint</button>
+        (click)="onAddBlueprint(serverNameInput)">Add Server Blueprint</button>
     </div>
 </div>
