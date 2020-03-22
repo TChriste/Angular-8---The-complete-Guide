@@ -1,4 +1,4 @@
-import { Component,  } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -7,11 +7,20 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // Approche 2 : ViewChild --> Accessible sans submit le form 
+  @ViewChild('f', {static: false}) signUpForm: NgForm;
+
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
 
-  onSubmit(form: NgForm) {
-    console.log(form);
+  // Approche 1
+  // onSubmit(form: NgForm) {
+  //  console.log(form);
+  // }
+
+  // Approche 2 : ViewChild
+  onSubmit() {
+    console.log(this.signUpForm);
   }
 }
