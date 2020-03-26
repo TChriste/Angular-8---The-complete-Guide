@@ -10,6 +10,7 @@ export class AppComponent {
   // Approche 2 : ViewChild --> Accessible sans submit le form
   @ViewChild('f', {static: false}) signUpForm: NgForm;
   defaultQuestion = 'pet';
+  answer = '';
 
   suggestUserName() {
     const suggestedName = 'Superuser';
