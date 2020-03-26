@@ -7,8 +7,9 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // Approche 2 : ViewChild --> Accessible sans submit le form 
+  // Approche 2 : ViewChild --> Accessible sans submit le form
   @ViewChild('f', {static: false}) signUpForm: NgForm;
+  defaultQuestion = 'pet';
 
   suggestUserName() {
     const suggestedName = 'Superuser';
