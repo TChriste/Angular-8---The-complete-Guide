@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
+import { map, catchError, tap } from 'rxjs/operators';
 
 import { Post } from './post.model';
 import { Subject, throwError } from 'rxjs';
@@ -16,20 +16,28 @@ export class PostsService {
         this.http
         .post<{name: string}>(
             'https://ng-complete-guide-89788.firebaseio.com/posts.json',
-            postData
+            postData,
+            {
+               observe: 'response'
+            }
         ).subscribe(responseData => {
-            console.log(responseData);
+            console.log(responseData.body);
         }, error => {
             this.error.next(error.message);
         });
     }
 
     fetchPosts() {
+        let searchParams = new HttpParams();
+        searchParams = searchParams.append('print', 'pretty');
+        searchParams = searchParams.append('custom', 'key');
+
         return this.http
         .get<{[key: string]: Post}>(
             'https://ng-complete-guide-89788.firebaseio.com/posts.json',
             {
-                headers: new HttpHeaders({'Custom-Header': 'Hello'})
+                headers: new HttpHeaders({'Custom-Header': 'Hello'}),
+                params: searchParams
             }
         )
         .pipe(
@@ -49,7 +57,18 @@ export class PostsService {
         );
     }
 
-    deletePosts(){
-        return this.http.delete('https://ng-complete-guide-89788.firebaseio.com/posts.json');
+    deletePosts() {
+        return this.http.delete('https://ng-complete-guide-89788.firebaseio.com/posts.json',
+            {
+                observe: 'events'
+            }
+        ).pipe(tap(event => {
+            if (event.type === HttpEventType.Sent) {
+                // ...
+            }
+            if (event.type === HttpEventType.Response) {
+                console.log(event.body);
+            }
+        }));
     }
 }
