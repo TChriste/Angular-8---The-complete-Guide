@@ -9,28 +9,34 @@ import { Subject } from 'rxjs';
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe (
-            'Tasty Schniztel',
-            'A super-testy Schnitzel - just awesome !!',
-            'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
-            [
-                new Ingredient('Meat', 1),
-                new Ingredient('French Fries', 20)
-            ]
-        ),
-        new Recipe (
-            'Big Burger',
-            'What else you need to say ?',
-            'https://upload.wikimedia.org/wikipedia/commons/6/62/NCI_Visuals_Food_Hamburger.jpg',
-            [
-                new Ingredient('Buns', 2),
-                new Ingredient('Meat', 1)
-            ]
-        )
-    ];
+    // private recipes: Recipe[] = [
+    //    new Recipe (
+    //        'Tasty Schniztel',
+    //        'A super-testy Schnitzel - just awesome !!',
+    //         'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+    //         [
+    //             new Ingredient('Meat', 1),
+    //             new Ingredient('French Fries', 20)
+    //         ]
+    //     ),
+    //     new Recipe (
+    //         'Big Burger',
+    //         'What else you need to say ?',
+    //         'https://upload.wikimedia.org/wikipedia/commons/6/62/NCI_Visuals_Food_Hamburger.jpg',
+    //         [
+    //             new Ingredient('Buns', 2),
+    //             new Ingredient('Meat', 1)
+    //         ]
+    //     )
+    // ];
+    private recipes: Recipe[] = [];
 
     constructor(private shoppingListService: ShoppingListService) {}
+
+    setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+    }
 
     getRecipes() {
         return this.recipes.slice();
