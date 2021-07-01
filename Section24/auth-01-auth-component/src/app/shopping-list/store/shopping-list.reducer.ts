@@ -41,6 +41,8 @@ export function ShoppingListReducer(state: State = initialState, action: Shoppin
             const updatedIngredients = [...state.ingredients];
             updatedIngredients[state.editedIngredientIndex] = updatedIngredient;
             
+            console.log(updatedIngredients);
+
             return {
                 ...state,
                 ingredients: updatedIngredients,
